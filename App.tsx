@@ -1,118 +1,157 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Icon} from 'react-native-paper';
+import UserHomeScreen from './screens/inner-elements/user/UserHomeScreen.tsx';
+import UserPaymentsScreen from './screens/inner-elements/user/UserPaymentsScreen.tsx';
+import UserSubjectsScreen from './screens/inner-elements/user/UserSubjectsScreen.tsx';
+import UserMyProgramsScreen from './screens/inner-elements/user/UserMyProgramsScreen.tsx';
+import UserAllProgramsScreen from './screens/inner-elements/user/UserAllProgramsScreen.tsx';
+import {NavigationContainer} from '@react-navigation/native';
+import LoginScreen from './screens/LoginScreen.tsx';
+import SignupScreen from './screens/SignupScreen.tsx';
+import AdminDashboardScreen from './screens/AdminDashboardScreen.tsx';
+import AdminAllProgramsScreen from './screens/inner-elements/admin/AdminAllProgramsScreen.tsx';
+import AdminSubjectScreen from './screens/inner-elements/admin/AdminSubjectScreen.tsx';
+import AdminPaymentsScreen from './screens/inner-elements/admin/AdminPaymentsScreen.tsx';
+import AdminHomeScreen from "./screens/inner-elements/admin/AdminHomeScreen.tsx";
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const UserTabNavigator = () => {
+    return (
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+            switch (route.name) {
+              case 'Home':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'Programs':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'My Programs':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'Subjects':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'Payments':
+                iconName = focused ? 'home' : 'home';
+                break;
+            }
+            return <Icon size={22} color={color} source={iconName} />;
+          },
+          tabBarActiveTintColor: '#d35400',
+          tabBarInactiveTintColor: '#bdc3c7',
+        })}>
+        <Tab.Screen
+          name="Home"
+          component={UserHomeScreen}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Programs"
+          component={UserAllProgramsScreen}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="My Programs"
+          component={UserMyProgramsScreen}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Subjects"
+          component={UserSubjectsScreen}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Payments"
+          component={UserPaymentsScreen}
+          options={{headerShown: false}}
+        />
+      </Tab.Navigator>
+    );
+  };
+  const AdminTabNavigator = () => {
+    return (
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName;
+            switch (route.name) {
+              case 'Home':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'Programs':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'Subjects':
+                iconName = focused ? 'home' : 'home';
+                break;
+              case 'Payments':
+                iconName = focused ? 'home' : 'home';
+                break;
+            }
+            return <Icon size={22} color={color} source={iconName} />;
+          },
+          tabBarActiveTintColor: '#d35400',
+          tabBarInactiveTintColor: '#bdc3c7',
+        })}>
+        <Tab.Screen
+          name="Home"
+          component={AdminHomeScreen}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Programs"
+          component={AdminAllProgramsScreen}
+          options={{headerShown: false}}
+        />
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+        <Tab.Screen
+          name="Subjects"
+          component={AdminSubjectScreen}
+          options={{headerShown: false}}
+        />
+        <Tab.Screen
+          name="Payments"
+          component={AdminPaymentsScreen}
+          options={{headerShown: false}}
+        />
+      </Tab.Navigator>
+    );
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SignupScreen"
+          component={SignupScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="UserDashboard"
+          component={UserTabNavigator}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="AdminDashboard"
+          component={AdminTabNavigator}
+          options={{headerShown: false}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
