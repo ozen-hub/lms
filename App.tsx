@@ -10,11 +10,10 @@ import UserAllProgramsScreen from './screens/inner-elements/user/UserAllPrograms
 import {NavigationContainer} from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen.tsx';
 import SignupScreen from './screens/SignupScreen.tsx';
-import AdminDashboardScreen from './screens/AdminDashboardScreen.tsx';
 import AdminAllProgramsScreen from './screens/inner-elements/admin/AdminAllProgramsScreen.tsx';
 import AdminSubjectScreen from './screens/inner-elements/admin/AdminSubjectScreen.tsx';
 import AdminPaymentsScreen from './screens/inner-elements/admin/AdminPaymentsScreen.tsx';
-import AdminHomeScreen from "./screens/inner-elements/admin/AdminHomeScreen.tsx";
+import AdminHomeScreen from './screens/inner-elements/admin/AdminHomeScreen.tsx';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,16 +30,16 @@ function App(): React.JSX.Element {
                 iconName = focused ? 'home' : 'home';
                 break;
               case 'Programs':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'book' : 'book';
                 break;
               case 'My Programs':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'format-list-bulleted' : 'format-list-bulleted';
                 break;
               case 'Subjects':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'widgets' : 'widgets';
                 break;
               case 'Payments':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'contactless-payment' : 'contactless-payment';
                 break;
             }
             return <Icon size={22} color={color} source={iconName} />;
@@ -87,13 +86,13 @@ function App(): React.JSX.Element {
                 iconName = focused ? 'home' : 'home';
                 break;
               case 'Programs':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'book' : 'book';
                 break;
               case 'Subjects':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'widgets' : 'widgets';
                 break;
               case 'Payments':
-                iconName = focused ? 'home' : 'home';
+                iconName = focused ? 'contactless-payment' : 'contactless-payment';
                 break;
             }
             return <Icon size={22} color={color} source={iconName} />;
