@@ -1,18 +1,27 @@
-import {View, Text, StyleSheet} from 'react-native';
+
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import UserPaymentCard from '../../../widgets/UserPaymentCard';
+
 
 const AdminPaymentsScreen = ({navigation}) => {
     return (
-        <View style={styles.container}>
-            <Text>Screen!</Text>
-        </View>
+        <ScrollView style={styles.container}>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+            <UserPaymentCard navigation={navigation}/>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        padding:10
     }
 })
 export default AdminPaymentsScreen;

@@ -55,22 +55,18 @@ function App(): React.JSX.Element {
         <Tab.Screen
           name="Programs"
           component={UserAllProgramsScreen}
-          options={{headerShown: false}}
         />
         <Tab.Screen
           name="My Programs"
           component={UserMyProgramsScreen}
-          options={{headerShown: false}}
         />
         <Tab.Screen
           name="Subjects"
           component={UserSubjectsScreen}
-          options={{headerShown: false}}
         />
         <Tab.Screen
           name="Payments"
           component={UserPaymentsScreen}
-          options={{headerShown: false}}
         />
       </Tab.Navigator>
     );
@@ -108,18 +104,18 @@ function App(): React.JSX.Element {
         <Tab.Screen
           name="Programs"
           component={AdminAllProgramsScreen}
-          options={{headerShown: false}}
+
         />
 
         <Tab.Screen
           name="Subjects"
           component={AdminSubjectScreen}
-          options={{headerShown: false}}
+
         />
         <Tab.Screen
           name="Payments"
           component={AdminPaymentsScreen}
-          options={{headerShown: false}}
+
         />
       </Tab.Navigator>
     );

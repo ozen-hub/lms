@@ -1,18 +1,25 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import SubjectWidget from "../../../widgets/SubjectWidget.tsx";
+import SubjectCard from "../../../widgets/SubjectCard.tsx";
+
 
 const UserSubjectsScreen = ({navigation}) => {
     return (
-        <View style={styles.container}>
-            <Text>Screen!</Text>
-        </View>
+        <ScrollView style={styles.container}>
+            <SubjectCard/>
+            <SubjectCard/>
+            <SubjectCard/>
+            <SubjectCard/>
+            <SubjectCard/>
+            <SubjectCard/>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
+        padding:10
     }
 })
 export default UserSubjectsScreen;

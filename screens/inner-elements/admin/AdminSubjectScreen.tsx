@@ -1,18 +1,53 @@
-import {View, Text, StyleSheet} from 'react-native';
+
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import SubjectWidget from "../../../widgets/SubjectWidget.tsx";
+import SubjectCard from "../../../widgets/SubjectCard.tsx";
+import {Icon} from "react-native-paper";
+
 
 const AdminSubjectScreen = ({navigation}) => {
   return (
-    <View style={styles.container}>
-      <Text>Screen!</Text>
-    </View>
-  );
-};
+      <View style={{flex: 1}}>
+      <TouchableOpacity style={styles.add}>
+          <Icon color={'white'} size={20} source='plus'/>
+      </TouchableOpacity>
+      <ScrollView style={styles.container}>
+        <SubjectCard/>
+        <SubjectCard/>
+        <SubjectCard/>
+        <SubjectCard/>
+        <SubjectCard/>
+        <SubjectCard/>
+      </ScrollView>
+      </View>
+  )
+}
 
 const styles = StyleSheet.create({
+    add: {
+        width: 45,
+        height: 45,
+        backgroundColor: '#c0392b',
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        zIndex: 1,
+        borderRadius: 50,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
+        justifyContent:"center",
+        alignItems:"center"
+    },
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    padding:10
+  }
+})
 export default AdminSubjectScreen;
