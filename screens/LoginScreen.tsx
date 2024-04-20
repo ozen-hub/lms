@@ -1,9 +1,20 @@
 import {View, Text, StyleSheet, Button, FlatList, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import {TextInput} from 'react-native-paper';
-import {useState} from 'react';
-import AsyncStorage from '@react'
+import {useEffect, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation}) => {
+
+
+    useEffect(()=>{
+        AsyncStorage.getItem('token').then(token=>{
+            if(token){
+                navigation.navigate('UserDashboard');
+            }
+        }).catch(error=>{
+            console.log(error)})
+    },[]);
+
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
 
@@ -29,7 +40,8 @@ const LoginScreen = ({navigation}) => {
             return response.json();
         })
             .then(data => {
-                console.log(data.access_token);
+                AsyncStorage.setItem('token',data.access_token);
+                navigation.navigate('UserDashboard');
                 // Handle response data here
             })
             .catch(error => {

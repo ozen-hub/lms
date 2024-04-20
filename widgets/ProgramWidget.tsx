@@ -1,27 +1,22 @@
 import {ScrollView, StyleSheet, Text, View} from "react-native";
 import SubjectWidget from "./SubjectWidget.tsx";
-
-const ProgramWidget = ({navigation}) => {
+import moment from 'moment';
+const ProgramWidget = ({navigation,data}) => {
     return (
         <View style={styles.view}>
-            <Text style={styles.name}>Program Name</Text>
-            <Text style={styles.amount}>25000</Text>
+            <Text style={styles.name}>{data.name}</Text>
+            <Text style={styles.amount}>{data.price}</Text>
 
             <View style={styles.date}>
-                <Text style={{color: 'white'}}>2022-12-20</Text>
+                <Text style={{color: 'white'}}>{moment(data.startDate).format('YYYY-MM-DD')}</Text>
             </View>
 
             <ScrollView style={styles.scroll} horizontal={true}>
-                <SubjectWidget navigation={navigation} subject={'Java Script'}/>
-                <SubjectWidget navigation={navigation} subject={'Php'}/>
-                <SubjectWidget navigation={navigation} subject={'C#'}/>
-                <SubjectWidget navigation={navigation} subject={'Ruby'}/>
-                <SubjectWidget navigation={navigation} subject={'Kotlin'}/>
-                <SubjectWidget navigation={navigation} subject={'Java Script'}/>
-                <SubjectWidget navigation={navigation} subject={'Php'}/>
-                <SubjectWidget navigation={navigation} subject={'C#'}/>
-                <SubjectWidget navigation={navigation} subject={'Ruby'}/>
-                <SubjectWidget navigation={navigation} subject={'Kotlin'}/>
+                {
+                    data.subjects?.map((subject,index)=>(
+                        <SubjectWidget key={index} navigation={navigation} subject={subject.name}/>
+                    ))
+                }
             </ScrollView>
 
         </View>
