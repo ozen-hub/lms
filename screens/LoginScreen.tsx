@@ -1,10 +1,43 @@
-import {View, Text, StyleSheet, Button, FlatList, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Button, FlatList, ScrollView, TouchableOpacity, Alert} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {useState} from 'react';
+import AsyncStorage from '@react'
 
 const LoginScreen = ({navigation}) => {
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
+
+
+    const login = () => {
+        const userData = {
+            password: password,
+            username: username,
+        }
+
+
+
+        fetch(`http://192.168.8.235:8089/api/v1/users/login?username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+        }) .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+            .then(data => {
+                console.log(data.access_token);
+                // Handle response data here
+            })
+            .catch(error => {
+                console.error('Error logging in:', error);
+                // Optionally, show error message
+                Alert.alert('Error logging in:', error.message);
+            });
+    }
 
     return (
         <View style={styles.container}>
@@ -17,6 +50,7 @@ const LoginScreen = ({navigation}) => {
                         style={styles.input}
                         mode='outlined'
                         outlineColor='#ecf0f1'
+                        autoCapitalize={'none'}
                         label="username"
                         value={username}
                         onChangeText={text => setUsername(text)}
@@ -28,13 +62,14 @@ const LoginScreen = ({navigation}) => {
                         mode='outlined'
                         outlineColor='#ecf0f1'
                         label="password"
+                        autoCapitalize={'none'}
                         value={password}
                         secureTextEntry={true}
                         onChangeText={text => setPassword(text)}
                     />
                 </View>
                 <View>
-                    <TouchableOpacity  onPress={()=>navigation.navigate('UserDashboard')} style={styles.button}>
+                    <TouchableOpacity  onPress={login} style={styles.button}>
                         <Text style={{color:'white'}}>Login</Text>
                     </TouchableOpacity>
                 </View>

@@ -3,14 +3,41 @@ import {TextInput} from 'react-native-paper';
 import {useState} from 'react';
 
 const SignupScreen = ({navigation}) => {
+    let [firstName, setFirstName] = useState('');
+    let [lastName, setLastName] = useState('');
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
+
+
+    const signup = () => {
+        const userData = {
+            email: username,
+            password: password,
+            username: username,
+            firstname: firstName,
+            lastName: lastName
+        }
+
+        fetch('http://192.168.8.235:8089/api/v1/users/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+
+        }).then(data => {
+            console.log(data);
+            navigation.navigate('LoginScreen');
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     return (
         <View style={styles.container}>
             <ScrollView style={styles.flatList}>
-                <View style={{alignItems:'center',marginTop:50, marginBottom:50}}>
-                    <Text style={{fontSize:30}}>Register Now</Text>
+                <View style={{alignItems: 'center', marginTop: 50, marginBottom: 50}}>
+                    <Text style={{fontSize: 30}}>Register Now</Text>
                 </View>
                 <View>
                     <TextInput
@@ -18,8 +45,8 @@ const SignupScreen = ({navigation}) => {
                         mode='outlined'
                         outlineColor='#ecf0f1'
                         label="First Name"
-                        value={username}
-                        onChangeText={text => setUsername(text)}
+                        value={firstName}
+                        onChangeText={text => setFirstName(text)}
                     />
                 </View>
                 <View>
@@ -28,8 +55,8 @@ const SignupScreen = ({navigation}) => {
                         mode='outlined'
                         outlineColor='#ecf0f1'
                         label="Last Name"
-                        value={username}
-                        onChangeText={text => setUsername(text)}
+                        value={lastName}
+                        onChangeText={text => setLastName(text)}
                     />
                 </View>
                 <View>
@@ -54,12 +81,13 @@ const SignupScreen = ({navigation}) => {
                     />
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.button}>
-                        <Text style={{color:'white'}}>Sign up</Text>
+                    <TouchableOpacity style={styles.button} onPress={signup}>
+                        <Text style={{color: 'white'}}>Sign up</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity  onPress={()=>navigation.navigate('LoginScreen')} style={[styles.button,{backgroundColor: 'white'}]}>
-                    <Text style={{color:'#16a085',textDecorationLine:'underline'}}>Already have an Account?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}
+                                  style={[styles.button, {backgroundColor: 'white'}]}>
+                    <Text style={{color: '#16a085', textDecorationLine: 'underline'}}>Already have an Account?</Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>
@@ -71,19 +99,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#3498db',
         width: '100%',
         height: 50,
-        borderRadius:3,
-        alignItems:'center',
-        justifyContent:'center'
+        borderRadius: 3,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     container: {
         flex: 1,
     },
     input: {
-        marginBottom:25
+        marginBottom: 25
     },
     flatList: {
         padding: 20,
-        backgroundColor:'white'
+        backgroundColor: 'white'
     },
 });
 export default SignupScreen;
